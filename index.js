@@ -17,6 +17,18 @@ app.get('/',(req,res)=>{
     res.send('api is working');
 })
 
+app.get('/users', async (req, resp) => {
+    try {
+      const users = await User.find();
+      resp.status(200).json({
+        users
+      });
+    } catch (error) {
+      resp.status(500).json({ error: 'An error occurred while fetching users' });
+    }
+  });
+  
+
 function authorizationToken(req,resp,next){
     const token = req.headers.authorization
     const {id} = req.body;
